@@ -96,7 +96,7 @@ App = {
       return electionInstance.voters(App.account);
     }).then(function(hasVoted){
       // Do not allow a user to vote
-      if(hasVoted) {
+      if(hasVoted==20) {
         $('form').hide();
       }
       loader.hide();
@@ -107,6 +107,12 @@ App = {
 
   },
 
+  castregister: function(){
+    App.contracts.Election.deployed().then(function(instance){
+      return instance.register({from: App.account});
+    })
+  },
+  
   castVote: function(){
     var candidateId = $('#candidatesSelect').val();
     App.contracts.Election.deployed().then(function(instance){
